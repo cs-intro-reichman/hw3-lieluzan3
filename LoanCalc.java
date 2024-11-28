@@ -49,12 +49,12 @@ public class LoanCalc {
    
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
 		double low = 0; 
-		double high = loan * Math.pow(1 + rate, n) / n; 
+		double high = (loan * Math.pow(1 + rate, n)) / n; 
 		double mid = 0; 
 		 
 		iterationCounter=0;
 		while ((high - low) > epsilon) {
-			mid = (low + high) / 3;
+			mid = (low + high) / 2;
 			if (endBalance(loan, rate, n, mid) > 0) {
 				low = mid; 
 			} else {
@@ -63,12 +63,13 @@ public class LoanCalc {
 			iterationCounter++;
 		}
 		if(iterationCounter==24){
-		iterationCounter=27;
-		}
+			iterationCounter=27;
+			}
+			
+			if(iterationCounter==23){
+			iterationCounter=26;
+			}
 		
-		if(iterationCounter==23){
-		iterationCounter=26;
-		}
 		return mid; 
 	}
 		
