@@ -14,7 +14,7 @@ public class Algebra {
    		System.out.println(pow(5,3));      // 5^3
    		System.out.println(pow(3,5));      // 3^5
    		System.out.println(div(12,3));   // 12 / 3    
-   		System.out.println(div(5,5));    // 5 / 5  
+   		System.out.println(div(-8,2));    // 5 / 5  
    		System.out.println(div(25,7));   // 25 / 7
    		System.out.println(mod(25,7));   // 25 % 7
    		System.out.println(mod(120,6));  // 120 % 6    
@@ -178,107 +178,56 @@ public class Algebra {
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		int num1=0;
-		int num2=0;
+		int result = 1;
+		if(x1 ==0){
+			return 0;
+		}
+		int temp1 = x1, temp2 = x2;
 		if(x1<0){
-			while(num1>x1){
-				for(int i=0; i<x2; i++){
-					num1--;
-				}
-				num2--;
-			}
-			if(num1<x1){
-				num2++;
-			}
-			return num2;
+			temp1 = minus(0, x1);
 		}
-		else if (x2<0) {
-			for (int i =x2; i < 0; i++) {
-				num1++;
-				
-			}
-			x2=num1;
-			num1=0;
-			while(num1<x1){
-				for(int i=0; i<x2; i++){
-					num1++;
-				}
-				num2++;
-			}
-			if(num1>x1){
-				num2--;
-			}
-			num1=0;
-			for (int i = 0; i < num2; i++) {
-				num1--;
-
-				
-			}
-			return num1;
-			
+		if(x2<0){
+			temp2 = minus(0, x2);
 		}
-		else if(x1<0&&x2<0){
-			for (int i = x1; i < 0; i++) {
-				num1++;
-				
-			}
-			for (int i = x2; i < 0; i++) {
-				num2++;
-				
-			}
-			return pow(num1, num1);
-		}
-	
-			else 
-			while(num1<x1){
-				for(int i=0; i<x2; i++){
-					num1++;
+		for(int i=1; i<temp1;i++){
+			if(times(temp2, i) == temp1){
+				if((x1>0 && x2>0) || (x1<0 && x2<0)){
+					return i;
 				}
-				num2++;
+				else{
+					return minus(0, i);
+				}
 			}
-			if(num1>x1){
-				num2--;
+			else if(times(temp2, i) > temp1){
+				i--;
+				if((x1>0 && x2>0) || (x1<0 && x2<0)){
+					return i;
+				}
+				else{
+					return minus(0, i);
+				}
 			}
-			
-		return num2;
+		}
+		return result;
 	}
+
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		if(x2>x1){
-		return x1;
-		}
-		while(x2<=x1){
-			for (int i = 0; i <x2; i++) {
-				x1--;
-				
-			}
-		
-			
-		}
-
-		
-		return x1;
+		int result;
+		result = minus(x1, times(x2, div(x1, x2)));
+		return result; 
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		int num=0;
-		while(num<x){
-			if(times(num, num)<x){
-			num++;
-			}
-		
-			else if(times(num,num)==x){
-				return num;
-			}
-			else {
-				num--;
-				return num;
-			}
-
-			
+		if(x==0 || x==1){
+			return x;
 		}
+		int xsqrt = 0;
+		while(pow(xsqrt, 2)-x<0 && xsqrt<x){
+			xsqrt++;
+		}	
+		return xsqrt;
+	}
 
-		return num;
-	}	  	  
 }
