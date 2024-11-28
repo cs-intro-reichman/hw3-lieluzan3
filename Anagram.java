@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 
 
@@ -33,21 +32,27 @@ public class Anagram {
 		// מנקים את המחרוזות
 		String cleanStr1 = preProcess(str1);
 		String cleanStr2 = preProcess(str2);
-		
-		
+	
 		if (cleanStr1.length() != cleanStr2.length()) {
 			return false;
 		}
+	
+		int[] charCounts = new int[26]; 
+	
+		for (char c : cleanStr1.toCharArray()) {
+			charCounts[c - 'a']++;
+		}
+	
+		for (char c : cleanStr2.toCharArray()) {
+			charCounts[c - 'a']--;
+			if (charCounts[c - 'a'] < 0) {
+				return false; 
+			}
+		}
+	
 		
-		// ממירים למערך, ממיינים ומשווים
-		char[] arr1 = cleanStr1.toCharArray();
-		char[] arr2 = cleanStr2.toCharArray();
-		Arrays.sort(arr1);
-		Arrays.sort(arr2);
-		
-		return Arrays.equals(arr1, arr2);
+		return true;
 	}
-	   
 	
 	public static String preProcess(String str) {
 		if (str == null) {
