@@ -14,167 +14,82 @@ public class Algebra {
    		System.out.println(pow(5,3));      // 5^3
    		System.out.println(pow(3,5));      // 3^5
    		System.out.println(div(12,3));   // 12 / 3    
-   		System.out.println(div(-8,2));    // 5 / 5  
+   		System.out.println(div(5,5));    // 5 / 5  
    		System.out.println(div(25,7));   // 25 / 7
    		System.out.println(mod(25,7));   // 25 % 7
    		System.out.println(mod(120,6));  // 120 % 6    
-   		 System.out.println(sqrt(36));
-		 System.out.println(sqrt(263169));
-   		 System.out.println(sqrt(76123));
-   		 System.out.println(sqrt(76123));
-
+   		System.out.println(sqrt(36));
+		System.out.println(sqrt(263169));
+   		System.out.println(sqrt(76123));
 	}  
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		if(x2<0){
-			int num=0;
-			for(int j=x2; j<0; j++){
-				num++;
+		int sum = x1;
+		if(x2>0){
+			for(int i=0; i<x2; i++){
+				sum++;
 			}
-			return (minus(x1, num));
 		}
-		for(int i=0; i<x2; i++){
-			x1++;
+		else{
+			for(int i =0; i>x2; i--){
+				sum--;
+			}
+		}
 
-		}
-		return x1;
+		return sum;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		if(x2<0){
-		int num=0;
-		for(int j=x2; j<0; j++){
-			num++;
+		int sum = x1;
+		if(x2>0){
+			for(int i=0; i<x2; i++){
+				sum--;
+			}
 		}
-		return (plus(x1, num));
-	}
-
-		for (int i = 0; i < x2; i++) {
-			x1--;
+		else{
+			for(int i =0; i>x2; i--){
+				sum++;
+			}
 		}
-		
-		
-		return x1;
+		return sum;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		int num=0;
-		int num2=0;
-		if(x1<0&&x2<0){
-			for (int i =x1; i < 0; i++) {
-				num++;
-				
-			}
-			for (int i = x2; i < 0; i++) {
-				num2++;
-				
-			}
-			return times(num, num2);
+		int temp1 = x1, temp2 = x2;
+		if(x1 == 0 || x2 == 0){
+			return 0;
 		}
-		else if(x1<0){
-			for (int i = x1; i <0; i++) {
-				num++;
-				
-			}
-			num2=times(num, x2);
-			num=0;
-			for (int i = 0; i < num2; i++) {
-				num--;
-				
-			}
-			return num;
-			
+		if(x1<0){
+			temp1 = minus(0, x1);
+		}
+		if(x2<0){
+			temp2 = minus(0, x2);
+		}
+		int result = temp1;
+		for (int i = 1; i<temp2; i++){
+			result = plus(result, temp1);
+		}	
+		if(!((x1>0 && x2>0) || (x1<0 && x2<0))){
+			result = minus(0, result);
 		}
 
-		else if(x2<0){
-			for (int i = x2; i <0; i++) {
-				num++;
-				
-			}
-			num2=times(x1, num);
-			num=0;
-			for (int i = 0; i < num2; i++) {
-				num--;
-				
-			}
-			return num;
-
-		}
-		else{
-		for (int i = 0; i < x2; i++) {
-			for (int j = 0; j < x1; j++) {
-				num++;
-
-				
-			}
-			
-		}
-		return num;
+		return result;
 	}
-}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-		int num=0;
-		int num1=x;
-		int num2=0;
-		if(n==0){
+		int resultpow = x;
+		if(n ==0){
 			return 1;
 		}
-		
-	
-	  if(x<0&&mod(n, 2)==1){
-		for (int i = x; i < 0;i++) {
-			num++;
-			
+		for(int i=1; i<n;i++){
+			  resultpow = times(resultpow, x);
 		}
-		for (int i = 1; i < n; i++) {
-			for (int j = 0; j < num; j++) {
-				for (int k = 0; k < x; k++) {
-					num2++;
-				}
-			}
-		}
-		num=0;
-		for (int i = 0; i < num2; i++) {
-			num--;
-			
-		}
-		return num2;
+		return resultpow;
 	}
-			
-			else if(x<0&&mod(n, 2)==0){
-				for (int i = x; i < 0;i++) {
-					num++;
-					
-				}
-				return pow(num, n);
-				
-
-
-			}
-			else{
-				
-					for (int i = 1; i < n; i++) {
-						for (int j = 0; j < num1; j++) {
-							for (int k = 0; k < x; k++) {
-								num++;
-							}
-						}
-						num1=num;
-						num=0;
-					}
-					return num1;
-			} 
-		}
-			
-
-
-	
-	
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
