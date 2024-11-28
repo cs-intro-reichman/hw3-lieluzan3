@@ -54,9 +54,8 @@ public class Anagram {
 			return "";
 		}
 		
-		return str.replaceAll("[^a-zA-Z]", "").toLowerCase();
+		return str.replaceAll("[^a-zA-Z ]", "").toLowerCase();
 	}
-	   
 	
 	public static String randomAnagram(String str) {
 		
