@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /** Functions for checking if a given string is an anagram. */
 public class Anagram {
 	public static void main(String args[]) {
@@ -26,24 +31,56 @@ public class Anagram {
 		System.out.println(pass ? "test passed" : "test Failed");
 	}  
 
-	// Returns true if the two given strings are anagrams, false otherwise.
+	
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+  //מקבל את מחרוזות ומעדכן אותם במשתנה בפעולה
+    str1 = preProcess(str1);
+    str2 = preProcess(str2);
+    
+    
+    if (str1.length() != str2.length()) {
+        return false;
+    }
+    
+    // מיון האותיות בשני המחרוזות והשוואה ביניהם
+    char[] arr1 = str1.toCharArray();
+    char[] arr2 = str2.toCharArray();
+
+    Arrays.sort(arr1);
+    Arrays.sort(arr2);
+    
+    return Arrays.equals(arr1, arr2);		
 	}
 	   
-	// Returns a preprocessed version of the given string: all the letter characters are converted
-	// to lower-case, and all the other characters are deleted, except for spaces, which are left
-	// as is. For example, the string "What? No way!" becomes "whatnoway"
+	
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+		str = str.replaceAll("\\s", ""); 
+		str = str.replaceAll("[^a-zA-Z]", "");
+		str = str.toLowerCase();         
+		return str;
+	
 	} 
 	   
-	// Returns a random anagram of the given string. The random anagram consists of the same
-	// characters as the given string, re-arranged in a random order. 
+	
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		str = preProcess(str);  // נשתמש ב-preProcess כדי לנקות את המילה
+    
+    // המרת המילה למערך תוויים
+    List<Character> characters = new ArrayList<>();
+    for (char c : str.toCharArray()) {
+        characters.add(c);
+    }
+    
+    // ערבוב אקראי של התוויים
+    Collections.shuffle(characters);
+    
+    // בניית המילה מחדש מהתוויים המעורבבים
+    StringBuilder sb = new StringBuilder();
+    for (char c : characters) {
+        sb.append(c);
+    }
+    
+    return sb.toString();
+		
 	}
 }
