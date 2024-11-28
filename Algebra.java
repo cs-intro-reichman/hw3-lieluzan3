@@ -75,22 +75,35 @@ public class Algebra {
 			return times(num, num2);
 		}
 		else if(x1<0){
-			for (int i = 0; i <= x2; i++) {
+			for (int i = x1; i <0; i++) {
+				num++;
 				
-				num=plus(num2, x1);
+			}
+			num2=times(num, x2);
+			num=0;
+			for (int i = 0; i < num2; i++) {
+				num--;
+				
 			}
 			return num;
 			
 		}
 
 		else if(x2<0){
-			for (int i = 0; i < x1; i++) {
-				num=plus(num2, x2);
+			for (int i = x2; i <0; i++) {
+				num++;
+				
+			}
+			num2=times(x1, num);
+			num=0;
+			for (int i = 0; i < num2; i++) {
+				num--;
+				
 			}
 			return num;
 
 		}
-		else
+		else{
 		for (int i = 0; i < x2; i++) {
 			for (int j = 0; j < x1; j++) {
 				num++;
@@ -101,6 +114,7 @@ public class Algebra {
 		}
 		return num;
 	}
+}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
@@ -112,7 +126,7 @@ public class Algebra {
 		}
 		
 	
-	 else if(x<0&&mod(n, 2)==1){
+	  if(x<0&&mod(n, 2)==1){
 		for (int i = x; i < 0;i++) {
 			num++;
 			
@@ -123,6 +137,11 @@ public class Algebra {
 					num2++;
 				}
 			}
+		}
+		num=0;
+		for (int i = 0; i < num2; i++) {
+			num--;
+			
 		}
 		return num2;
 	}
@@ -225,13 +244,18 @@ public class Algebra {
 	}
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
+		if(x2>x1){
+		return x1;
+		}
 		while(x2<=x1){
 			for (int i = 0; i <x2; i++) {
 				x1--;
 				
 			}
+		
 			
 		}
+
 		
 		return x1;
 	}	
